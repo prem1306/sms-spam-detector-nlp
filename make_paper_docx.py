@@ -54,6 +54,31 @@ for name in ['Heading 1', 'Heading 2']:
 lines = (ROOT / 'research_paper.md').read_text(encoding='utf-8').splitlines()
 title = lines[0].replace('# ', '').strip()
 subtitle = lines[2].replace('## ', '').strip()
+
+# Institutional cover page. The IEEE-style manuscript begins on the next page.
+for text, size, bold, gap in [
+    ('SRI CHANDRASEKHARENDRA SARASWATHI VISWA MAHAVIDYALAYA', 18, True, 6),
+    ('(UNIVERSITY ESTABLISHED UNDER SECTION 3 OF UGC ACT 1956)', 11, False, 2),
+    ('ENATHUR, KANCHIPURAM – 631 561', 11, False, 24),
+    ('DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING', 15, True, 52),
+    ('RESEARCH PAPER', 14, True, 28),
+    (title, 19, True, 18),
+    (subtitle, 12, False, 44),
+    ('Submitted by', 11, False, 6),
+    ('K Prem Sai', 14, True, 4),
+    ('Registration No. 11249A148', 11, False, 42),
+    ('NLP Mini Project', 11, False, 2),
+    ('November 2026', 11, False, 0),
+]:
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_after = Pt(gap)
+    run = p.add_run(text)
+    run.font.name = 'Times New Roman'
+    run.font.size = Pt(size)
+    run.bold = bold
+doc.add_page_break()
+
 p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.space_after = Pt(5)
 r = p.add_run(title); r.font.name = 'Times New Roman'; r.font.size = Pt(24)
 p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
